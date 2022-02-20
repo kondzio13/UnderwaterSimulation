@@ -11,9 +11,11 @@ public abstract class Animal
     // Whether the animal is alive or not.
     private boolean alive;
     // The animal's field.
-    private Field field;
+    protected MasterField simulationField;
+    //The field in which the animal is found
+    protected Field physicalField;
     // The animal's position in the field.
-    private Location location;
+    protected Location location;
     
     /**
      * Create a new animal at location in field.
@@ -21,10 +23,11 @@ public abstract class Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(Field field, Location location)
+    public Animal(MasterField simulationField, Field physicalField, Location location)
     {
         alive = true;
-        this.field = field;
+        this.simulationField = simulationField;
+        this.physicalField = physicalField;
         setLocation(location);
     }
     
@@ -52,9 +55,9 @@ public abstract class Animal
     {
         alive = false;
         if(location != null) {
-            field.clear(location);
+            physicalField.clear(location);
             location = null;
-            field = null;
+            physicalField = null;
         }
     }
 
@@ -74,18 +77,27 @@ public abstract class Animal
     protected void setLocation(Location newLocation)
     {
         if(location != null) {
-            field.clear(location);
+            physicalField.clear(location);
         }
         location = newLocation;
-        field.place(this, newLocation);
+        physicalField.place(this, newLocation);
     }
     
     /**
-     * Return the animal's field.
-     * @return The animal's field.
+     * Return the animal's animal field.
+     * @return The animal's animal field.
      */
-    protected Field getField()
+    protected Field getAnimalField()
     {
-        return field;
+        return simulationField.getAnimalField();
+    }
+    
+    /**
+     * Return the animal's environment field.
+     * @return The animal's environment field.
+     */
+    protected Field getEnvironmentField()
+    {
+        return simulationField.getEnvironmentField();
     }
 }

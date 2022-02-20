@@ -27,7 +27,7 @@ public class Fox extends Animal
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
     
-    // Individual characteristics (instance fields).
+    // Individual characteristics (instance physicalFields).
     // The fox's age.
     private int age;
     // The fox's food level, which is increased by eating rabbits.
@@ -38,12 +38,12 @@ public class Fox extends Animal
      * and not hungry) or with a random age and food level.
      * 
      * @param randomAge If true, the fox will have random age and hunger level.
-     * @param field The field currently occupied.
-     * @param location The location within the field.
+     * @param physicalField The physicalField currently occupied.
+     * @param location The location within the physicalField.
      */
-    public Fox(boolean randomAge, Field field, Location location)
+    public Fox(boolean randomAge, MasterField simField, Location location)
     {
-        super(field, location);
+        super(simField, simField.getAnimalField(), location);
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
             foodLevel = rand.nextInt(RABBIT_FOOD_VALUE);
@@ -58,7 +58,7 @@ public class Fox extends Animal
      * This is what the fox does most of the time: it hunts for
      * rabbits. In the process, it might breed, die of hunger,
      * or die of old age.
-     * @param field The field currently occupied.
+     * @param physicalField The physicalField currently occupied.
      * @param newFoxes A list to return newly born foxes.
      */
     public void act(List<Animal> newFoxes)
@@ -71,7 +71,7 @@ public class Fox extends Animal
             Location newLocation = findFood();
             if(newLocation == null) { 
                 // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
+                newLocation = physicalField.freeAdjacentLocation(getLocation());
             }
             // See if it was possible to move.
             if(newLocation != null) {
@@ -113,12 +113,11 @@ public class Fox extends Animal
      */
     private Location findFood()
     {
-        Field field = getField();
-        List<Location> adjacent = field.adjacentLocations(getLocation());
+        List<Location> adjacent = physicalField.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
         while(it.hasNext()) {
             Location where = it.next();
-            Object animal = field.getObjectAt(where);
+            Object animal = physicalField.getObjectAt(where);
             if(animal instanceof Rabbit) {
                 Rabbit rabbit = (Rabbit) animal;
                 if(rabbit.isAlive()) { 
@@ -140,12 +139,11 @@ public class Fox extends Animal
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        List<Location> free = physicalField.getFreeAdjacentLocations(getLocation());
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Fox young = new Fox(false, field, loc);
+            Fox young = new Fox(false, simulationField, loc);
             newFoxes.add(young);
         }
     }

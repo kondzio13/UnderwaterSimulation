@@ -36,9 +36,9 @@ public class Rabbit extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Rabbit(boolean randomAge, Field field, Location location)
+    public Rabbit(boolean randomAge, MasterField simField, Location location)
     {
-        super(field, location);
+        super(simField, simField.getAnimalField(), location);
         age = 0;
         if(randomAge) {
             age = rand.nextInt(MAX_AGE);
@@ -56,7 +56,7 @@ public class Rabbit extends Animal
         if(isAlive()) {
             giveBirth(newRabbits);            
             // Try to move into a free location.
-            Location newLocation = getField().freeAdjacentLocation(getLocation());
+            Location newLocation = physicalField.freeAdjacentLocation(getLocation());
             if(newLocation != null) {
                 setLocation(newLocation);
             }
@@ -88,12 +88,11 @@ public class Rabbit extends Animal
     {
         // New rabbits are born into adjacent locations.
         // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
+        List<Location> free = physicalField.getFreeAdjacentLocations(getLocation());
         int births = breed();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Rabbit young = new Rabbit(false, field, loc);
+            Rabbit young = new Rabbit(false, simulationField, loc);
             newRabbits.add(young);
         }
     }
@@ -120,4 +119,6 @@ public class Rabbit extends Animal
     {
         return age >= BREEDING_AGE;
     }
+    
+
 }
