@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=SimulatorBuilder
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ SimulatorDesigner\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=SimulatorBuilder()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ SimulatorBuilder\r\n
+comment2.params=depth\ width
+comment2.target=SimulatorBuilder(int,\ int)
+comment3.params=
+comment3.target=void\ reset()
+comment3.text=\r\n\ Reset\ the\ simulation\ to\ a\ starting\ position.\r\n
+comment4.params=
+comment4.target=void\ populate()
+comment4.text=\r\n\ Randomly\ populate\ the\ field\ with\ foxes\ and\ rabbits.\r\n
+numComments=5
