@@ -14,7 +14,7 @@ public class Plankton extends Plant
     
     private static final int MOVE_BUFFER = 2;
     
-    public Plankton(Field field, Location location)
+    public Plankton(MasterField field, Location location)
     {
         super(field, location);
     }

@@ -41,7 +41,7 @@ public class Shark extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Shark(boolean randomAge, Field field, Location location)
+    public Shark(boolean randomAge, MasterField field, Location location)
     {
         super(randomAge, field, location);
         PREY.add(Dolphin.class);
@@ -56,12 +56,12 @@ public class Shark extends Animal
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
-        Field field = getField();
+        Field field = getPhysicalField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breedSexually();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Shark young = new Shark(false, field, loc);
+            Shark young = new Shark(false, getSimulationField(), loc);
             newSharks.add(young);
         }
     }

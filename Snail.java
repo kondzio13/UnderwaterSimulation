@@ -47,7 +47,7 @@ public class Snail extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Snail(boolean randomAge, Field field, Location location)
+    public Snail(boolean randomAge, MasterField field, Location location)
     {
         super(randomAge, field, location);
         //PREY.add(Algae.class);
@@ -62,12 +62,12 @@ public class Snail extends Animal
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
-        Field field = getField();
+        Field field = getPhysicalField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breedSexually();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Snail young = new Snail(false, field, loc);
+            Snail young = new Snail(false, getSimulationField(), loc);
             newSnails.add(young);
         }
     }

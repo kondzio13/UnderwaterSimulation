@@ -11,8 +11,10 @@ public abstract class Organism
 {
     // Whether the animal is alive or not.
     private boolean alive;
-    // The animal's field.
-    private Field field;
+    // The simulation field.
+    private MasterField simulationField;
+    //The field in which the organism is found
+    private Field physicalField;
     // The animal's position in the field.
     private Location location;
     
@@ -21,10 +23,11 @@ public abstract class Organism
     /**
      * Constructor for objects of class Organism
      */
-    public Organism(Field field, Location location)
+    public Organism(MasterField field, Field physicalField, Location location)
     {
         alive = true;
-        this.field = field;
+        this.simulationField = field;
+        this.physicalField = physicalField;
         setLocation(location);
     }
     
@@ -37,15 +40,28 @@ public abstract class Organism
     {
         alive = false;
         if(location != null) {
-            field.clear(location);
+            physicalField.clear(location);
             location = null;
-            field = null;
+            physicalField = null;
         }
     }
     
-    protected Field getField()
+    /**
+     * Return the animal's animal field.
+     * @return The animal's animal field.
+     */
+    protected MasterField getSimulationField()
     {
-        return field;
+        return simulationField;
+    }
+
+    /**
+     * Return the organism's physicalField
+     * @return
+     */
+    protected Field getPhysicalField()
+    {
+        return physicalField;
     }
     
     protected Location getLocation()
@@ -56,11 +72,11 @@ public abstract class Organism
     protected void setLocation(Location newLocation)
     {
         if(location != null) {
-            field.clear(location);
+            physicalField.clear(location);
         }
         location = newLocation;
-        field.place(this, newLocation);
+        physicalField.place(this, newLocation);
     }
     
-    abstract public void act(List<Organism> newOrganisms);
+    abstract protected void act(List<Organism> newOrganisms);
 }

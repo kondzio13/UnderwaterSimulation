@@ -1,3 +1,4 @@
+import java.util.List;
 
 /**
  * Write a description of class Plant here.
@@ -10,8 +11,8 @@ public abstract class Plant extends Organism
     /**
      * Constructor for objects of class Plant
      */
-    public Plant(Field field, Location location)
+    public Plant(MasterField field, Location location)
     {
-        super(field, location);
+        super(field, field.getEnvironmentField(), location);
     }
 }

@@ -47,7 +47,7 @@ public class Argonaut extends Animal
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Argonaut(boolean randomAge, Field field, Location location)
+    public Argonaut(boolean randomAge, MasterField field, Location location)
     {
         super(randomAge, field, location);
         PREY.add(Jellyfish.class);
@@ -63,12 +63,12 @@ public class Argonaut extends Animal
     {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
-        Field field = getField();
+        Field field = getPhysicalField();
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breedSexually();
         for(int b = 0; b < births && free.size() > 0; b++) {
             Location loc = free.remove(0);
-            Argonaut young = new Argonaut(false, field, loc);
+            Argonaut young = new Argonaut(false, getSimulationField(), loc);
             newArgonauts.add(young);
         }
     }

@@ -22,9 +22,9 @@ public abstract class Animal extends Organism
      * @param field The field currently occupied.
      * @param location The location within the field.
      */
-    public Animal(Boolean randomAge, Field field, Location location)
+    public Animal(Boolean randomAge, MasterField simField, Location location)
     {
-        super(field, location);
+        super(simField, simField.getAnimalField(), location);
         maxAge = rand.nextInt(getMaxDeathAge() - getMinDeathAge()) + getMinDeathAge();
         if(randomAge) {
             age = rand.nextInt(maxAge);
@@ -46,7 +46,7 @@ public abstract class Animal extends Organism
             Location newLocation = findFood();
             if(newLocation == null) { 
                 // No food found - try to move to a free location.
-                newLocation = getField().freeAdjacentLocation(getLocation());
+                newLocation = getPhysicalField().freeAdjacentLocation(getLocation());
             }
             // See if it was possible to move.
             if(newLocation != null) {
@@ -61,7 +61,10 @@ public abstract class Animal extends Organism
     
     protected Location findFood()
     {
-        Field field = getField();
+        /////
+        ///// New subclass for carnivores and herbivores?
+        /////
+        Field field = getPhysicalField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
         while(it.hasNext()) {

@@ -11,39 +11,14 @@ import java.awt.Color;
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
  */
-public class Simulator
+public class Simulator extends SimulatorBuilder
 {
-    // Constants representing configuration information for the simulation.
-    // The default width for the grid.
-    private static final int DEFAULT_WIDTH = 120;
-    // The default depth of the grid.
-    private static final int DEFAULT_DEPTH = 80;
-    // The probability that a fox will be created in any given grid position.
-    private static final double SHARK_CREATION_PROBABILITY = 0.02;
-    // The probability that a rabbit will be created in any given grid position.
-    private static final double JELLYFISH_CREATION_PROBABILITY = 0.08;
-    
-    private static final double DOLPHIN_CREATION_PROBABILITY = 0.04;
-    
-    private static final double ARGONAUT_CREATION_PROBABILITY = 0.04;
-    
-    private static final double SNAIL_CREATION_PROBABILITY = 0.04;
-
-    // List of animals in the field.
-    private List<Organism> organisms;
-    // The current state of the field.
-    private Field field;
-    // The current step of the simulation.
-    private int step;
-    // A graphical view of the simulation.
-    private SimulatorView view;
-    
     /**
      * Construct a simulation field with default size.
      */
     public Simulator()
     {
-        this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+        super();
     }
     
     /**
@@ -53,26 +28,7 @@ public class Simulator
      */
     public Simulator(int depth, int width)
     {
-        if(width <= 0 || depth <= 0) {
-            System.out.println("The dimensions must be greater than zero.");
-            System.out.println("Using default values.");
-            depth = DEFAULT_DEPTH;
-            width = DEFAULT_WIDTH;
-        }
-        
-        organisms = new ArrayList<>();
-        field = new Field(depth, width);
-
-        // Create a view of the state of each location in the field.
-        view = new SimulatorView(depth, width);
-        view.setColor(Jellyfish.class, Color.PINK);
-        view.setColor(Shark.class, Color.LIGHT_GRAY);
-        view.setColor(Dolphin.class, Color.DARK_GRAY);
-        view.setColor(Argonaut.class, Color.RED);
-        view.setColor(Snail.class, Color.ORANGE);
-        
-        // Setup a valid starting point.
-        reset();
+        super(depth, width);
     }
     
     /**
@@ -91,10 +47,17 @@ public class Simulator
      */
     public void simulate(int numSteps)
     {
-        for(int step = 1; step <= numSteps && view.isViable(field); step++) {
+        for(int step = 1; step <= numSteps; step++) {
+            if (viableViews()){
+                simulateOneStep();
+            }
             simulateOneStep();
-            // delay(60);   // uncomment this to run more slowly
+            //delay(60);   // uncomment this to run more slowly
         }
+    }
+
+    private boolean viableViews(){
+        return animalView.isViable(simulationField.getAnimalField()) && environmentView.isViable(simulationField.getEnvironmentField());
     }
     
     /**
@@ -120,56 +83,13 @@ public class Simulator
         // Add the newly born foxes and rabbits to the main lists.
         organisms.addAll(newOrganisms);
 
-        view.showStatus(step, field);
+        animalView.showStatus(step, simulationField.getAnimalField());
+        environmentView.showStatus(step, simulationField.getEnvironmentField());
     }
         
-    /**
-     * Reset the simulation to a starting position.
-     */
-    public void reset()
-    {
-        step = 0;
-        organisms.clear();
-        populate();
-        
-        // Show the starting state in the view.
-        view.showStatus(step, field);
-    }
+
     
-    /**
-     * Randomly populate the field with foxes and rabbits.
-     */
-    private void populate()
-    {
-        Random rand = Randomizer.getRandom();
-        field.clear();
-        for(int row = 0; row < field.getDepth(); row++) {
-            for(int col = 0; col < field.getWidth(); col++) {
-                if(rand.nextDouble() <= SHARK_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Shark shark = new Shark(true, field, location);
-                    organisms.add(shark);
-                } else if(rand.nextDouble() <= JELLYFISH_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Jellyfish jellyfish = new Jellyfish(true, field, location);
-                    organisms.add(jellyfish);
-                } else if(rand.nextDouble() <= DOLPHIN_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Dolphin dolphin = new Dolphin(true, field, location);
-                    organisms.add(dolphin);
-                } else if(rand.nextDouble() <= ARGONAUT_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Argonaut argonaut = new Argonaut(true, field, location);
-                    organisms.add(argonaut);
-                } else if(rand.nextDouble() <= SNAIL_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Snail snail = new Snail(true, field, location);
-                    organisms.add(snail);
-                }
-                // else leave the location empty.
-            }
-        }
-    }
+
     
     /**
      * Pause for a given time.
