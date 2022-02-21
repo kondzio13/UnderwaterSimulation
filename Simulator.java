@@ -19,12 +19,18 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double FOX_CREATION_PROBABILITY = 0.02;
+    private static final double SHARK_CREATION_PROBABILITY = 0.02;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double RABBIT_CREATION_PROBABILITY = 0.08;    
+    private static final double JELLYFISH_CREATION_PROBABILITY = 0.08;
+    
+    private static final double DOLPHIN_CREATION_PROBABILITY = 0.04;
+    
+    private static final double ARGONAUT_CREATION_PROBABILITY = 0.04;
+    
+    private static final double SNAIL_CREATION_PROBABILITY = 0.04;
 
     // List of animals in the field.
-    private List<Animal> animals;
+    private List<Organism> organisms;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -54,13 +60,16 @@ public class Simulator
             width = DEFAULT_WIDTH;
         }
         
-        animals = new ArrayList<>();
+        organisms = new ArrayList<>();
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        view.setColor(Rabbit.class, Color.ORANGE);
-        view.setColor(Fox.class, Color.BLUE);
+        view.setColor(Jellyfish.class, Color.PINK);
+        view.setColor(Shark.class, Color.LIGHT_GRAY);
+        view.setColor(Dolphin.class, Color.DARK_GRAY);
+        view.setColor(Argonaut.class, Color.RED);
+        view.setColor(Snail.class, Color.ORANGE);
         
         // Setup a valid starting point.
         reset();
@@ -98,18 +107,18 @@ public class Simulator
         step++;
 
         // Provide space for newborn animals.
-        List<Animal> newAnimals = new ArrayList<>();        
+        List<Organism> newOrganisms = new ArrayList<>();        
         // Let all rabbits act.
-        for(Iterator<Animal> it = animals.iterator(); it.hasNext(); ) {
-            Animal animal = it.next();
-            animal.act(newAnimals);
-            if(! animal.isAlive()) {
+        for(Iterator<Organism> it = organisms.iterator(); it.hasNext(); ) {
+            Organism organism = it.next();
+            organism.act(newOrganisms);
+            if(! organism.isAlive()) {
                 it.remove();
             }
         }
                
         // Add the newly born foxes and rabbits to the main lists.
-        animals.addAll(newAnimals);
+        organisms.addAll(newOrganisms);
 
         view.showStatus(step, field);
     }
@@ -120,7 +129,7 @@ public class Simulator
     public void reset()
     {
         step = 0;
-        animals.clear();
+        organisms.clear();
         populate();
         
         // Show the starting state in the view.
@@ -136,15 +145,26 @@ public class Simulator
         field.clear();
         for(int row = 0; row < field.getDepth(); row++) {
             for(int col = 0; col < field.getWidth(); col++) {
-                if(rand.nextDouble() <= FOX_CREATION_PROBABILITY) {
+                if(rand.nextDouble() <= SHARK_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Fox fox = new Fox(true, field, location);
-                    animals.add(fox);
-                }
-                else if(rand.nextDouble() <= RABBIT_CREATION_PROBABILITY) {
+                    Shark shark = new Shark(true, field, location);
+                    organisms.add(shark);
+                } else if(rand.nextDouble() <= JELLYFISH_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Rabbit rabbit = new Rabbit(true, field, location);
-                    animals.add(rabbit);
+                    Jellyfish jellyfish = new Jellyfish(true, field, location);
+                    organisms.add(jellyfish);
+                } else if(rand.nextDouble() <= DOLPHIN_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Dolphin dolphin = new Dolphin(true, field, location);
+                    organisms.add(dolphin);
+                } else if(rand.nextDouble() <= ARGONAUT_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Argonaut argonaut = new Argonaut(true, field, location);
+                    organisms.add(argonaut);
+                } else if(rand.nextDouble() <= SNAIL_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Snail snail = new Snail(true, field, location);
+                    organisms.add(snail);
                 }
                 // else leave the location empty.
             }
