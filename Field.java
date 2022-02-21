@@ -89,6 +89,15 @@ public class Field
         return getObjectAt(location.getRow(), location.getCol());
     }
     
+    public Animal getAnimalAt(Location location)
+    {
+        Object animal = field[location.getRow()][location.getCol()];
+        if (animal instanceof Animal) {
+            return (Animal) animal;
+        }
+        return null;
+    }
+    
     /**
      * Return the animal at the given location, if any.
      * @param row The desired row.
