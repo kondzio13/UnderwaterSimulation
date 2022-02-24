@@ -1,7 +1,10 @@
 import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * A simple model of a fox.
@@ -28,7 +31,7 @@ public class Argonaut extends Animal
     private static final int FOOD_VALUE = 15;
     
     //
-    private static final String name = "Argonaut";
+    protected static final String name = "Argonaut";
     
     // The likelihood of a fox breeding.
     private static final double SEXUAL_BREEDING_PROBABILITY = 0.2;
@@ -36,7 +39,7 @@ public class Argonaut extends Animal
     private static final int MAX_LITTER_SIZE = 3;
     // A shared random number generator to control breeding.
     
-    protected static List<Class<? extends Organism>> PREY = new ArrayList<Class<? extends Organism>>();
+    protected static Set<String> PREY = new HashSet<String>(Arrays.asList("Jellyfish", "Snail"));
     
 
     /**
@@ -50,8 +53,6 @@ public class Argonaut extends Animal
     public Argonaut(boolean randomAge, MasterField field, Location location)
     {
         super(randomAge, field, location);
-        PREY.add(Jellyfish.class);
-        PREY.add(Snail.class);
     }
     
     /**
@@ -108,7 +109,7 @@ public class Argonaut extends Animal
         return name;
     }
     
-    protected List<Class<? extends Organism>> getPreyList()
+    protected Set<String> getPreyList()
     {
         return PREY;
     }

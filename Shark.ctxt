@@ -26,5 +26,5 @@ comment7.target=int\ getMaxDeathAge()
 comment8.params=
 comment8.target=int\ getFoodValue()
 comment9.params=
-comment9.target=java.util.List\ getPreyList()
+comment9.target=java.util.Set\ getPreyList()
 numComments=13

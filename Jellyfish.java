@@ -1,6 +1,9 @@
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * A simple model of a rabbit.
@@ -26,15 +29,15 @@ public class Jellyfish extends Animal
     
     private static final int FOOD_VALUE = 5;
     
-    protected static List<Class<? extends Organism>> PREY = new ArrayList<Class<? extends Organism>>();
+    protected static Set<String> PREY = new HashSet<String>(Arrays.asList("Plankton"));
     
     //
-    private static final String name = "Jellyfish";
+    protected static final String name = "Jellyfish";
     
     // The likelihood of a rabbit breeding.
-    private static final double SEXUAL_BREEDING_PROBABILITY = 0.075;
+    private static final double SEXUAL_BREEDING_PROBABILITY = 0.02;
     
-    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.075;
+    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.01;
     
     private static final int MAX_LITTER_SIZE = 2;
     
@@ -51,7 +54,6 @@ public class Jellyfish extends Animal
     public Jellyfish(boolean randomAge, MasterField field, Location location)
     {
         super(randomAge, field, location);
-        //PREY.add(Plankton.class);
     }
     
     /**
@@ -115,7 +117,7 @@ public class Jellyfish extends Animal
         return name;
     }
     
-    protected List<Class<? extends Organism>> getPreyList()
+    protected Set<String> getPreyList()
     {
         return PREY;
     }

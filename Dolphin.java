@@ -1,7 +1,10 @@
 import java.util.List;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * A simple model of a fox.
@@ -27,14 +30,14 @@ public class Dolphin extends Animal
     
     private static final int FOOD_VALUE = 100;
     
-    private static final double SEXUAL_BREEDING_PROBABILITY = 0.15;
+    private static final double SEXUAL_BREEDING_PROBABILITY = 0.1;
   
     private static final int MAX_LITTER_SIZE = 1;
     
-    protected static List<Class<? extends Organism>> PREY = new ArrayList<Class<? extends Organism>>();
+    protected static Set<String> PREY = new HashSet<String>(Arrays.asList("Jellyfish"));
     
     // testing
-    private static final String name = "Dolphin";
+    protected static final String name = "Dolphin";
     
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -47,7 +50,6 @@ public class Dolphin extends Animal
     public Dolphin(boolean randomAge, MasterField field, Location location)
     {
         super(randomAge, field, location);
-        PREY.add(Jellyfish.class);
     }
     
     /**
@@ -104,7 +106,7 @@ public class Dolphin extends Animal
         return name;
     }
     
-    protected List<Class<? extends Organism>> getPreyList()
+    protected Set<String> getPreyList()
     {
         return PREY;
     }

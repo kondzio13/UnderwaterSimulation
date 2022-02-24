@@ -13,6 +13,8 @@ public class Plankton extends Plant
     private static final double ASEXUAL_BREEDING_PROBABILITY = 0.2;
     
     private static final int MOVE_BUFFER = 2;
+
+    protected static final String name = "Plankton";
     
     public Plankton(MasterField field, Location location)
     {
@@ -22,5 +24,14 @@ public class Plankton extends Plant
     public void act(List<Organism> newPlanktons)
     {
         
+    }
+
+    protected String getName(){
+        return name;
+    }
+
+    @Override
+    protected int getFoodValue() {
+        return FOOD_VALUE;
     }
 }

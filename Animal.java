@@ -1,6 +1,8 @@
 import java.util.List;
+import java.util.Set;
 import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * A class representing shared characteristics of animals.
@@ -15,7 +17,9 @@ public abstract class Animal extends Organism
     protected int maxAge;
     
     protected int foodLevel;
-    
+
+    protected boolean isFemale;
+
     /**
      * Create a new animal at location in field.
      * 
@@ -28,6 +32,7 @@ public abstract class Animal extends Organism
         maxAge = rand.nextInt(getMaxDeathAge() - getMinDeathAge()) + getMinDeathAge();
         if(randomAge) {
             age = rand.nextInt(maxAge);
+            isFemale = rand.nextBoolean();
             foodLevel = rand.nextInt(getMaxFoodLevel());
         }
         else {
@@ -43,7 +48,7 @@ public abstract class Animal extends Organism
         if(isAlive()) {
             giveBirth(newAnimals);            
             // Move towards a source of food if found.
-            Location newLocation = findFood();
+            Location newLocation = findFood(); /// Need to check whether there is another animal already there in the physical field
             if(newLocation == null) { 
                 // No food found - try to move to a free location.
                 newLocation = getPhysicalField().freeAdjacentLocation(getLocation());
@@ -61,29 +66,29 @@ public abstract class Animal extends Organism
     
     protected Location findFood()
     {
-        /////
-        ///// New subclass for carnivores and herbivores?
-        /////
-        Field field = getPhysicalField();
-        List<Location> adjacent = field.adjacentLocations(getLocation());
-        Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
-            Location where = it.next();
-            Animal animal = field.getAnimalAt(where);
-            if (animal != null) {
-                for (Class<?> preyClass : getPreyList()) {
-                    if (preyClass.isInstance(animal)) {
-                        if(animal.isAlive()) { 
-                            animal.setDead();
-                            foodLevel += animal.getFoodValue();
-                            System.out.println(getName() + " ate " + animal.getName());
-                            return where;
-                        }
-                    }
+        for (Field field : getSimulationField().getFieldSet()){
+            List<Location> adjacent = field.adjacentLocations(getLocation());
+            Iterator<Location> it = adjacent.iterator();
+            while(it.hasNext()) {
+                Location loc = it.next();
+                Organism organism = field.getOrganismAt(loc);
+                if (organism == null){
+                    return null;
+                }
+                if (canConsumeOrganismAt(organism, loc)) {
+                    organism.setDead();
+                    foodLevel += organism.getFoodValue();
+                    System.out.println(getName() + " ate " + organism.getName());
+                    return loc;
                 }
             }
         }
         return null;
+    }
+
+    private boolean canConsumeOrganismAt(Organism animal, Location loc){
+        return getPreyList().contains(animal.getName()) && animal.isAlive() && (physicalField.getOrganismAt(loc) == null);
+
     }
     
     public boolean canBreed()
@@ -101,7 +106,7 @@ public abstract class Animal extends Organism
     
     protected void incrementHunger()
     {
-        foodLevel = foodLevel - (int) (getMaxFoodLevel() * 0.1);
+        foodLevel = foodLevel -1;
         if(foodLevel <= 0) {
             setDead();
         }
@@ -126,7 +131,7 @@ public abstract class Animal extends Organism
     
     abstract protected int getMaxDeathAge();
     
-    abstract protected int getFoodValue();
+    
     
     abstract protected int getMaxLitterSize();
     
@@ -134,8 +139,7 @@ public abstract class Animal extends Organism
     
     abstract protected void giveBirth(List<Organism> newAnimals);
     
-    abstract protected List<Class<? extends Organism>> getPreyList();
+    abstract protected Set<String> getPreyList();
     
-    // just for testing
-    abstract protected String getName();
+    
 }

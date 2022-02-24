@@ -121,7 +121,7 @@ public class SimulatorBuilder
                     Snail snail = new Snail(true, simulationField, location);
                     organisms.add(snail);
                 }
-                else if(rand.nextDouble() <= ALGAE_CREATION_PROBABILITY) {
+                if(rand.nextDouble() <= ALGAE_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Algae algae = new Algae(simulationField, location);
                     organisms.add(algae);
