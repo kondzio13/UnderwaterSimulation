@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 /**
  * Write a description of class MasterField here.
  *
@@ -21,6 +23,18 @@ public class MasterField
         this.width = width;
         this.animalField = new Field(depth, width);
         this.environmentField = new Field(depth, width);
+    }
+
+
+    /**
+     * Returns a HashSet with all fields
+     * @return fieldSet
+     */
+    public HashSet<Field> getFieldSet(){
+        HashSet<Field> fieldSet = new HashSet<Field>();
+        fieldSet.add(animalField);
+        fieldSet.add(environmentField);
+        return fieldSet;
     }
 
     /**

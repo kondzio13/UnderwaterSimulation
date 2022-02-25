@@ -3,8 +3,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 /**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
+ * Model for Algae.
+ * Algae can be eaten or grow to neighbouring fields.
  * 
  * @author David J. Barnes and Michael Kölling
  * @version 2016.02.29 (2)
@@ -13,13 +13,15 @@ public class Algae extends Plant
 {
     // Characteristics shared by all algae (class variables).
     // The likelihood of a fox breeding.
-    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.4;
+    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.01;
     private static final int FOOD_VALUE = 1;
 
     // The food value of a single rabbit. In effect, this is the
     private static final int MOVE_BUFFER = 999999;
     // A shared random number generator to control breeding.
     private static final Random rand = Randomizer.getRandom();
+
+    protected static final String name = "Algae";
 
     /**
      * Create a fox. A fox can be created as a new born (age zero
@@ -79,5 +81,14 @@ public class Algae extends Plant
             births = 2;
         }
         return births;
+    }
+
+    protected String getName(){
+        return name;
+    }
+
+
+    protected int getFoodValue() {
+        return FOOD_VALUE;
     }
 }

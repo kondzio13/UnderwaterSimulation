@@ -14,7 +14,7 @@ public abstract class Organism
     // The simulation field.
     private MasterField simulationField;
     //The field in which the organism is found
-    private Field physicalField;
+    protected Field physicalField;
     // The animal's position in the field.
     private Location location;
     
@@ -79,4 +79,9 @@ public abstract class Organism
     }
     
     abstract protected void act(List<Organism> newOrganisms);
+
+    // just for testing
+    abstract protected String getName();
+
+    abstract protected int getFoodValue();
 }

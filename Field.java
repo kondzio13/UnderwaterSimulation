@@ -89,11 +89,11 @@ public class Field
         return getObjectAt(location.getRow(), location.getCol());
     }
     
-    public Animal getAnimalAt(Location location)
+    public Organism getOrganismAt(Location location)
     {
-        Object animal = field[location.getRow()][location.getCol()];
-        if (animal instanceof Animal) {
-            return (Animal) animal;
+        Object organism = field[location.getRow()][location.getCol()];
+        if (organism instanceof Organism) {
+            return (Organism) organism;
         }
         return null;
     }
