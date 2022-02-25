@@ -7,81 +7,98 @@ import java.util.Random;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Organism
-{
+public abstract class Organism {
     // Whether the animal is alive or not.
     private boolean alive;
     // The simulation field.
     private MasterField simulationField;
-    //The field in which the organism is found
+    // The field in which the organism is found
     protected Field physicalField;
     // The animal's position in the field.
     private Location location;
-    
+
+    private double moveBufferProgress = 0;
+
     protected static final Random rand = Randomizer.getRandom();
 
     /**
      * Constructor for objects of class Organism
      */
-    public Organism(MasterField field, Field physicalField, Location location)
-    {
+    public Organism(MasterField field, Field physicalField, Location location) {
         alive = true;
         this.simulationField = field;
         this.physicalField = physicalField;
         setLocation(location);
     }
-    
-    protected boolean isAlive()
-    {
+
+    protected boolean isAlive() {
         return alive;
     }
-    
-    protected void setDead()
-    {
+
+    protected void setDead() {
         alive = false;
-        if(location != null) {
+        if (location != null) {
             physicalField.clear(location);
             location = null;
             physicalField = null;
         }
     }
-    
+
+    protected void incrementMoveBufferProgress() {
+        double progressAdded = (double) 1 / getMoveBuffer();
+        moveBufferProgress += progressAdded;
+    }
+
+    protected double getMoveBufferProgress() {
+        return moveBufferProgress;
+    }
+
     /**
      * Return the animal's animal field.
+     * 
      * @return The animal's animal field.
      */
-    protected MasterField getSimulationField()
-    {
+    protected MasterField getSimulationField() {
         return simulationField;
     }
 
     /**
      * Return the organism's physicalField
+     * 
      * @return
      */
-    protected Field getPhysicalField()
-    {
+    protected Field getPhysicalField() {
         return physicalField;
     }
-    
-    protected Location getLocation()
-    {
+
+    protected Location getLocation() {
         return location;
     }
-    
-    protected void setLocation(Location newLocation)
-    {
-        if(location != null) {
+
+    protected void setLocation(Location newLocation) {
+        if (location != null) {
             physicalField.clear(location);
         }
         location = newLocation;
         physicalField.place(this, newLocation);
     }
-    
+
+    protected int breedAsexually() {
+        int births = 0;
+        if (rand.nextDouble() <= getAsexualBreedingProbability()) {
+            births = 2;
+        }
+        return births;
+    }
+
     abstract protected void act(List<Organism> newOrganisms);
 
     // just for testing
     abstract protected String getName();
 
     abstract protected int getFoodValue();
+
+    abstract protected int getMoveBuffer();
+
+    abstract protected double getAsexualBreedingProbability();
 }

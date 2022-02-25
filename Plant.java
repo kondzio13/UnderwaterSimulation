@@ -6,13 +6,28 @@ import java.util.List;
  * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Plant extends Organism
-{
+public abstract class Plant extends Organism {
     /**
      * Constructor for objects of class Plant
      */
-    public Plant(MasterField field, Location location)
-    {
+    public Plant(MasterField field, Location location) {
         super(field, field.getEnvironmentField(), location);
     }
+
+    public void act(List<Organism> newPlants) {
+        if (isAlive()) {
+            giveBirth(newPlants);
+
+            Location newLocation = getPhysicalField().freeAdjacentLocation(getLocation());
+            // See if it was possible to move.
+            if (newLocation != null) {
+                setLocation(newLocation);
+            } else {
+                // Overcrowding.
+                setDead();
+            }
+        }
+    }
+
+    abstract protected void giveBirth(List<Organism> newPlants);
 }
