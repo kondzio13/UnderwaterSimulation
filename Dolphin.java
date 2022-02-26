@@ -69,6 +69,11 @@ public class Dolphin extends Animal {
             newDolphins.add(young);
         }
     }
+    
+    protected boolean isActive(boolean isDay)
+    {
+        return true;
+    }
 
     protected int getMinBreedingAge() {
         return MIN_BREEDING_AGE;

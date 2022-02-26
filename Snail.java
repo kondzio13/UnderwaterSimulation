@@ -72,6 +72,12 @@ public class Snail extends Animal {
             newSnails.add(young);
         }
     }
+    
+    // snail is inactive at night
+    protected boolean isActive(boolean isDay)
+    {
+        return isDay;
+    }
 
     protected int getMinBreedingAge() {
         return MIN_BREEDING_AGE;

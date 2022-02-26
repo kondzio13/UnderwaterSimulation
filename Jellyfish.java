@@ -71,6 +71,11 @@ public class Jellyfish extends Animal {
             newJellyfish.add(young);
         }
     }
+    
+    protected boolean isActive(boolean isDay)
+    {
+        return true;
+    }
 
     /**
      * Generate a number representing the number of births,
