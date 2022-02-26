@@ -66,6 +66,11 @@ public class Shark extends Animal {
             newSharks.add(young);
         }
     }
+    
+    protected boolean isActive(boolean isDay)
+    {
+        return true;
+    }
 
     protected int getMinBreedingAge() {
         return MIN_BREEDING_AGE;

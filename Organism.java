@@ -18,6 +18,8 @@ public abstract class Organism {
     private Location location;
 
     private double moveBufferProgress = 0;
+    
+    protected Simulator simulator;
 
     protected static final Random rand = Randomizer.getRandom();
 
@@ -49,8 +51,8 @@ public abstract class Organism {
         moveBufferProgress += progressAdded;
     }
 
-    protected double getMoveBufferProgress() {
-        return moveBufferProgress;
+    protected boolean canMove() {
+        return moveBufferProgress >= 1;
     }
 
     /**
@@ -90,8 +92,15 @@ public abstract class Organism {
         }
         return births;
     }
+    
+    protected int convertYearsToSteps(int years)
+    {
+        return years * 730;
+    }
 
-    abstract protected void act(List<Organism> newOrganisms);
+    abstract protected boolean isActive(boolean isDay);
+    
+    abstract protected void act(List<Organism> newOrganisms, boolean isDay);
 
     // just for testing
     abstract protected String getName();

@@ -65,13 +65,13 @@ public class Simulator extends SimulatorBuilder {
      */
     public void simulateOneStep() {
         step++;
-
+        
         // Provide space for newborn animals.
         List<Organism> newOrganisms = new ArrayList<>();
         // Let all rabbits act.
         for (Iterator<Organism> it = organisms.iterator(); it.hasNext();) {
             Organism organism = it.next();
-            organism.act(newOrganisms);
+            organism.act(newOrganisms, isDay());
             if (!organism.isAlive()) {
                 it.remove();
             }
@@ -82,6 +82,11 @@ public class Simulator extends SimulatorBuilder {
 
         animalView.showStatus(step, simulationField.getAnimalField());
         environmentView.showStatus(step, simulationField.getEnvironmentField());
+    }
+    
+    private boolean isDay()
+    {
+         return step % 2 == 0;
     }
 
     /**

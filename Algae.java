@@ -36,7 +36,7 @@ public class Algae extends Plant {
      * 
      * @param newFoxes A list to return newly born foxes.
      */
-    protected void giveBirth(List<Organism> newAlgae) {
+    protected void giveBirth(List<Organism> newAlgae,  boolean isDay) {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
         Field field = getPhysicalField();
@@ -47,6 +47,11 @@ public class Algae extends Plant {
             Algae young = new Algae(getSimulationField(), loc);
             newAlgae.add(young);
         }
+    }
+    
+    protected boolean isActive(boolean isDay)
+    {
+        return isDay;
     }
 
     protected String getName() {

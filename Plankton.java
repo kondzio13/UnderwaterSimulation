@@ -20,7 +20,7 @@ public class Plankton extends Plant {
         super(field, location);
     }
 
-    protected void giveBirth(List<Organism> newPlankton) {
+    protected void giveBirth(List<Organism> newPlankton, boolean isDay) {
         // New foxes are born into adjacent locations.
         // Get a list of adjacent free locations.
         Field field = getPhysicalField();
@@ -31,6 +31,11 @@ public class Plankton extends Plant {
             Plankton young = new Plankton(getSimulationField(), loc);
             newPlankton.add(young);
         }
+    }
+    
+    protected boolean isActive(boolean isDay)
+    {
+        return true;
     }
 
     protected String getName() {

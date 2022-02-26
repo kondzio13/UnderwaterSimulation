@@ -14,9 +14,9 @@ public abstract class Plant extends Organism {
         super(field, field.getEnvironmentField(), location);
     }
 
-    public void act(List<Organism> newPlants) {
-        if (isAlive()) {
-            giveBirth(newPlants);
+    public void act(List<Organism> newPlants, boolean isDay) {
+        if (isAlive() && isActive(isDay)) {
+            giveBirth(newPlants, isDay);
 
             Location newLocation = getPhysicalField().freeAdjacentLocation(getLocation());
             // See if it was possible to move.
@@ -29,5 +29,5 @@ public abstract class Plant extends Organism {
         }
     }
 
-    abstract protected void giveBirth(List<Organism> newPlants);
+    abstract protected void giveBirth(List<Organism> newPlants, boolean isDay);
 }

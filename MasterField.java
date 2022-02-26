@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.ArrayList;
 
 /**
  * Write a description of class MasterField here.
@@ -30,8 +31,8 @@ public class MasterField
      * Returns a HashSet with all fields
      * @return fieldSet
      */
-    public HashSet<Field> getFieldSet(){
-        HashSet<Field> fieldSet = new HashSet<Field>();
+    public ArrayList<Field> getFieldList(){
+        ArrayList<Field> fieldSet = new ArrayList<Field>();
         fieldSet.add(animalField);
         fieldSet.add(environmentField);
         return fieldSet;

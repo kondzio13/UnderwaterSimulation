@@ -71,6 +71,11 @@ public class Argonaut extends Animal {
             newArgonauts.add(young);
         }
     }
+    
+    protected boolean isActive(boolean isDay)
+    {
+        return isDay;
+    }
 
     protected int getMinBreedingAge() {
         return MIN_BREEDING_AGE;
