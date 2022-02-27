@@ -48,8 +48,7 @@ public class Simulator extends SimulatorBuilder {
             } else {
                 System.out.println("Simulation no longer viable");
             }
-            //simulateOneStep();
-            // delay(60); // uncomment this to run more slowly
+             delay(100); // uncomment this to run more slowly
         }
     }
 
@@ -76,6 +75,7 @@ public class Simulator extends SimulatorBuilder {
                 it.remove();
             }
         }
+        environment.step(newOrganisms, isDay());
 
         // Add the newly born foxes and rabbits to the main lists.
         organisms.addAll(newOrganisms);

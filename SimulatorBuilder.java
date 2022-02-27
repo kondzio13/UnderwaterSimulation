@@ -36,8 +36,10 @@ public class SimulatorBuilder {
     protected MasterField simulationField;
     // A graphical view of the animals in the simulation.
     protected SimulatorView animalView;
-    // A graphical view of the environment factors in the simulation.
+    // A graphical view of the environment in the simulation.
     protected SimulatorView environmentView;
+    // Controls environmental events in the simuulation.
+    protected EnvironmentalEventController environment;
     // Keeps track of current step count
     protected int step;
 
@@ -58,6 +60,7 @@ public class SimulatorBuilder {
 
         simulationField = new MasterField(depth, width);
         organisms = new ArrayList<>();
+        environment = new EnvironmentalEventController(simulationField);
 
         // Create a view of the state of each location in the field.
         animalView = new SimulatorView(depth, width);
