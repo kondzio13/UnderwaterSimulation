@@ -75,6 +75,7 @@ public class SimulatorBuilder {
         environmentView = new SimulatorView(depth, width);
         environmentView.setColor(Algae.class, Color.GREEN.darker());
         environmentView.setColor(Plankton.class, new Color(67, 120, 124));
+        environmentView.setColor(OilSpill.class, Color.BLACK);
 
         // Setup a valid starting point.
         reset();
@@ -126,11 +127,11 @@ public class SimulatorBuilder {
                     Location location = new Location(row, col);
                     Algae algae = new Algae(simulationField, location);
                     organisms.add(algae);
-                } else if (rand.nextDouble() <= PLANKTON_CREATION_PROBABILITY) {
+                } /*else if (rand.nextDouble() <= PLANKTON_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Plankton plankton = new Plankton(simulationField, location);
                     organisms.add(plankton);
-                }
+                }*/
                 // else leave the location empty.
             }
         }
