@@ -15,7 +15,7 @@ public class OilSpiller
     private List<OilSpill> oilSpills;
     private Random random;
 
-    private static final int MAX_SPILL_SIZE = 3;
+    private static final int MAX_SPILL_RADIUS = 3;
 
     /**
      * Constructor for objects of class OilSpiller
@@ -28,14 +28,14 @@ public class OilSpiller
     }
 
     public void spillOil(Location location){
-        int oilSpillSize = generateOilSpillSize();
-        OilSpill newOilSpill = new OilSpill(simulationField, location, oilSpillSize);
+        int oilSpillRadius = generateOilSpillRadius();
+        OilSpill newOilSpill = new OilSpill(simulationField, location, oilSpillRadius);
         oilSpills.add(newOilSpill);
 
     }
 
-    private int generateOilSpillSize(){
-        return random.nextInt(MAX_SPILL_SIZE);
+    private int generateOilSpillRadius(){
+        return random.nextInt(MAX_SPILL_RADIUS);
     }
 
     public void step(){

@@ -26,7 +26,7 @@ public class Oil
         this.environmentField = simulationField.getEnvironmentField();
         this.location = location;
         this.age = 0;
-        this.isPolluting = true;
+        this.isPolluting = false;
     }
 
     public void step(){
@@ -38,11 +38,19 @@ public class Oil
         }
     }
 
+    public void startPolluting(){
+        isPolluting = true;
+    }
+
     private boolean isStillPolluting(){
         return age < OIL_LIFETIME; 
     }
 
-    public boolean getIsPolluting(){
+    public boolean isPolluting(){
         return isPolluting;
+    }
+
+    public Location getLocation(){
+        return location;
     }
 }

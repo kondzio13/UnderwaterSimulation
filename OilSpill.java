@@ -13,7 +13,8 @@ public class OilSpill implements TrackableEvent
     private MasterField simulationField;
     private Field environmentField;
     private Location epicentre;
-    private int oilLayersLeft;
+    private int radius;
+    private int currentLayer;
 
     private List<Oil> oils;
 
@@ -21,31 +22,56 @@ public class OilSpill implements TrackableEvent
     /**
      * Constructor for objects of class OilSpill
      */
-    public OilSpill(MasterField simulationField, Location location, int size)
+    public OilSpill(MasterField simulationField, Location location, int radius)
     { 
         this.simulationField = simulationField;
         this.environmentField = simulationField.getEnvironmentField();
         this.epicentre = location;
-        this.oilLayersLeft = size;
-        this.oils = new ArrayList<Oil>();
+        this.radius = radius;
+        this.currentLayer = 0;
+        this.oils = prepareOils();
 
-        spillOil(epicentre);
-        oilLayersLeft = oilLayersLeft - 1;
+        
     }
 
-    public void spillOil(Location location){
-        Oil newOil = new Oil(simulationField, location);
-        oils.add(newOil);
-        simulationField.clear(location);
-        environmentField.place(newOil, location);
-    }
+    
 
     public void step(){
-
         for (Oil oil : oils){
-            oil.step();
+            if (shouldBeActivated(oil)){
+                oil.startPolluting();
+            }
+            if (oil.isPolluting()){
+                oil.step();
+            }
         }
-        oilLayersLeft = oilLayersLeft - 1;
+        currentLayer = currentLayer + 1;
     }
 
+    private boolean shouldBeActivated(Oil oil){
+        Location oilLocation  = oil.getLocation();
+        if (inValidRow(oilLocation) && inValidCol(oilLocation)){
+            return true;
+        }
+        return false;
+        
+    }
+    private boolean inValidRow(Location location){
+        return ((location.getRow() == (epicentre.getRow() + currentLayer)) ||
+                (location.getRow() == (epicentre.getRow() - currentLayer)));
+    }
+
+    private boolean inValidCol(Location location){
+        return ((location.getCol() == (epicentre.getCol() + currentLayer)) ||
+                (location.getCol() == (epicentre.getCol() - currentLayer)));
+    }
+
+    private List<Oil> prepareOils(){
+        List<Oil> oilsList = new ArrayList<Oil>();
+        List<Location> oilLocations = environmentField.adjacentLocations(epicentre, radius);
+        for (Location location : oilLocations){
+            oils.add(new Oil(simulationField, location));
+        }
+        return oilsList;
+    }
 }

@@ -33,7 +33,7 @@ public class EnvironmentalEventController
         this.oilSpiller = new OilSpiller(simulationField);
     }
     
-    public void step(List newOrganisms, boolean isDay)
+    public void step(List<Organism> newOrganisms, boolean isDay)
     {
         Random rand = Randomizer.getRandom();
         for (int row = 0; row < simulationField.getDepth(); row++) {
@@ -43,7 +43,7 @@ public class EnvironmentalEventController
                     newOrganisms.addAll(algaeIntroducer.getNewAlgae(location));
                 } else if (rand.nextDouble() <= OIL_SPILL_PROBABILITY){
                     Location location = new Location(row, col);
-                    
+                    oilSpiller.spillOil(location);
                 }
             }
         }
