@@ -197,6 +197,39 @@ public class Field {
         }
         return locations;
     }
+    
+    /**
+     * Return a shuffled list of locations adjacent to the given one.
+     * The list will not include the location itself.
+     * All locations will lie within the grid.
+     * 
+     */
+    public List<Location> adjacentLocations(Location location, int radius) {
+        assert location != null : "Null location passed to adjacentLocations";
+        // The list of locations to be returned.
+        List<Location> locations = new LinkedList<>();
+        if (location != null) {
+            int row = location.getRow();
+            int col = location.getCol();
+            for (int roffset = -radius; roffset <= radius; roffset++) {
+                int nextRow = row + roffset;
+                if (nextRow >= 0 && nextRow < depth) {
+                    for (int coffset = -radius; coffset <= radius; coffset++) {
+                        int nextCol = col + coffset;
+                        // Exclude invalid locations and the original location.
+                        if (nextCol >= 0 && nextCol < width && (roffset != 0 || coffset != 0)) {
+                            locations.add(new Location(nextRow, nextCol));
+                        }
+                    }
+                }
+            }
+
+            // Shuffle the list. Several other methods rely on the list
+            // being in a random order.
+            Collections.shuffle(locations, rand);
+        }
+        return locations;
+    }
 
     /**
      * Return the depth of the field.

@@ -8,26 +8,41 @@
 public class Oil
 {
     // instance variables - replace the example below with your own
-    private int x;
+    private MasterField simulationField;
+    private Field environmentField;
+    private Location location;
+    private int age;
+    private boolean isPolluting;
+
+    // Determines how many steps the oil pollutes the field space for
+    private static final int OIL_LIFETIME = 5;
 
     /**
      * Constructor for objects of class Oil
      */
-    public Oil()
+    public Oil(MasterField simulationField, Location location)
     {
-        // initialise instance variables
-        x = 0;
+        this.simulationField = simulationField;
+        this.environmentField = simulationField.getEnvironmentField();
+        this.location = location;
+        this.age = 0;
+        this.isPolluting = true;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
+    public void step(){
+        if (isStillPolluting()){
+            simulationField.clear(location);
+            age = age + 1;
+        } else {
+            isPolluting = false;
+        }
+    }
+
+    private boolean isStillPolluting(){
+        return age < OIL_LIFETIME; 
+    }
+
+    public boolean getIsPolluting(){
+        return isPolluting;
     }
 }

@@ -75,7 +75,7 @@ public class SimulatorBuilder {
         environmentView = new SimulatorView(depth, width);
         environmentView.setColor(Algae.class, Color.GREEN.darker());
         environmentView.setColor(Plankton.class, new Color(67, 120, 124));
-        environmentView.setColor(OilSpill.class, Color.BLACK);
+        environmentView.setColor(Oil.class, Color.BLACK);
 
         // Setup a valid starting point.
         reset();
