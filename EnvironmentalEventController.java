@@ -13,7 +13,7 @@ public class EnvironmentalEventController
     
     private static final double ALGAE_INTRODUCTION_PROBABILITY = 0.005;
     
-    private static final double OIL_SPILL_PROBABILITY = 0.001;
+    private static final double OIL_SPILL_PROBABILITY = 0.02;
     
     private MasterField simulationField;
     private Field environmentField;

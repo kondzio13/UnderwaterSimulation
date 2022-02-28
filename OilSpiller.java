@@ -35,7 +35,7 @@ public class OilSpiller
     }
 
     private int generateOilSpillRadius(){
-        return random.nextInt(MAX_SPILL_RADIUS);
+        return random.nextInt(MAX_SPILL_RADIUS - 1) + 1;
     }
 
     public void step(){
