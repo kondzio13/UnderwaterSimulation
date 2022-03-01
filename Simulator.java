@@ -43,10 +43,11 @@ public class Simulator extends SimulatorBuilder {
      */
     public void simulate(int numSteps) {
         for (int step = 1; step <= numSteps; step++) {
-            if (viableViews()) {
+            if (viableViews()) {   
                 simulateOneStep();
             } else {
                 System.out.println("Simulation no longer viable");
+                break;
             }
              delay(100); // uncomment this to run more slowly
         }

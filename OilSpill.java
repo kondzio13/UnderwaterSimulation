@@ -1,5 +1,5 @@
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Write a description of class OilSpill here.
@@ -15,6 +15,7 @@ public class OilSpill implements TrackableEvent
     private Location epicentre;
     private int radius;
     private int currentLayer;
+    private boolean isActive;
 
     private List<Oil> oils;
 
@@ -29,6 +30,7 @@ public class OilSpill implements TrackableEvent
         this.epicentre = location;
         this.radius = radius;
         this.currentLayer = 0;
+        this.isActive = true;
         this.oils = prepareOils();
 
         
@@ -46,6 +48,11 @@ public class OilSpill implements TrackableEvent
             }
         }
         currentLayer = currentLayer + 1;
+        updateActiveStatus();
+    }
+
+    public boolean IsActive(){
+        return isActive;
     }
 
     private boolean shouldBeActivated(Oil oil){
@@ -57,21 +64,31 @@ public class OilSpill implements TrackableEvent
         
     }
     private boolean inValidRow(Location location){
-        return ((location.getRow() == (epicentre.getRow() + currentLayer)) ||
-                (location.getRow() == (epicentre.getRow() - currentLayer)));
+        return ((location.getRow() <= (epicentre.getRow() + currentLayer)) &&
+                (location.getRow() >= (epicentre.getRow() - currentLayer)));
     }
 
     private boolean inValidCol(Location location){
-        return ((location.getCol() == (epicentre.getCol() + currentLayer)) ||
-                (location.getCol() == (epicentre.getCol() - currentLayer)));
+        return ((location.getCol() <= (epicentre.getCol() + currentLayer)) &&
+                (location.getCol() >= (epicentre.getCol() - currentLayer)));
     }
 
     private List<Oil> prepareOils(){
         List<Oil> oilsList = new ArrayList<Oil>();
-        List<Location> oilLocations = environmentField.adjacentLocations(epicentre, radius);
+        List<Location> oilLocations = environmentField.locationsWithinOf(radius, epicentre);
         for (Location location : oilLocations){
-            oils.add(new Oil(simulationField, location));
+            oilsList.add(new Oil(simulationField, location));
         }
         return oilsList;
+    }
+
+    private void updateActiveStatus(){
+        for (Oil oil : oils){
+            if (oil.isPolluting()){
+                isActive = true;
+                return;
+            }
+        }
+        isActive = false;
     }
 }

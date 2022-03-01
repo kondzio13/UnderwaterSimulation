@@ -13,6 +13,7 @@ public class Oil
     private Location location;
     private int age;
     private boolean isPolluting;
+    private boolean hasBeenActivated;
 
     // Determines how many steps the oil pollutes the field space for
     private static final int OIL_LIFETIME = 5;
@@ -27,11 +28,13 @@ public class Oil
         this.location = location;
         this.age = 0;
         this.isPolluting = false;
+        this.hasBeenActivated = false;
     }
 
     public void step(){
-        if (isStillPolluting()){
-            simulationField.clear(location);
+        simulationField.clear(location);
+        if (validAge()){
+            environmentField.place(this, location);
             age = age + 1;
         } else {
             isPolluting = false;
@@ -39,10 +42,12 @@ public class Oil
     }
 
     public void startPolluting(){
-        isPolluting = true;
+        if (!hasBeenActivated){
+            isPolluting = true;
+        }
     }
 
-    private boolean isStillPolluting(){
+    private boolean validAge(){
         return age < OIL_LIFETIME; 
     }
 

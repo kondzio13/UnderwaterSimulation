@@ -127,11 +127,11 @@ public class SimulatorBuilder {
                     Location location = new Location(row, col);
                     Algae algae = new Algae(simulationField, location);
                     organisms.add(algae);
-                } /*else if (rand.nextDouble() <= PLANKTON_CREATION_PROBABILITY) {
+                } else if (rand.nextDouble() <= PLANKTON_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Plankton plankton = new Plankton(simulationField, location);
                     organisms.add(plankton);
-                }*/
+                }
                 // else leave the location empty.
             }
         }

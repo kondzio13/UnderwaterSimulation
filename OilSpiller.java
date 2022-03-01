@@ -1,6 +1,7 @@
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Write a description of class OilSpiller here.
@@ -35,7 +36,7 @@ public class OilSpiller
     }
 
     private int generateOilSpillRadius(){
-        return random.nextInt(MAX_SPILL_RADIUS - 1) + 1;
+        return random.nextInt(MAX_SPILL_RADIUS) + 1;
     }
 
     public void step(){
@@ -43,5 +44,16 @@ public class OilSpiller
         {
             oilSpill.step();
         }
+        checkActiveOilSpills();
+    }
+
+    private void checkActiveOilSpills(){
+        ArrayList<OilSpill> remainingActive = new ArrayList<OilSpill>();
+        for (OilSpill oilSpill : oilSpills){
+            if (oilSpill.IsActive()){
+                remainingActive.add(oilSpill);
+            }
+        }
+        oilSpills = remainingActive;
     }
 }
