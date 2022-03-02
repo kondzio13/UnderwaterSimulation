@@ -4,64 +4,61 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 /**
- * A simple model of a rabbit.
- * Rabbits age, move, breed, and die.
+ * A simple model of a jellyfish
+ * Jellyfish age, move, eat plankton, breed, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
  */
 public class Jellyfish extends Animal {
-    // Characteristics shared by all rabbits (class variables).
+    // Characteristics shared by all jellyfishs (class variables).
 
-    // The age at which a rabbit can start to breed.
+    // The minimum age at which a jellyfish can start to breed
     private static final int MIN_BREEDING_AGE = 1;
-
+    // The maximum age at which a jellyfish is capable of breeding
     private static final int MAX_BREEDING_AGE = 999999;
-    // The age to which a rabbit can live.
+    // Minimum age a jellyfish will die (from simply getting too old)
     private static final int MIN_DEATH_AGE = 1;
-
+    // Maximum age a jellyfish can live (some jellyfish can effectively live forever)
     private static final int MAX_DEATH_AGE = 999999;
-
+    // Max amount of food a jellyfish can store
     private static final int MAX_FOOD_LEVEL = 100;
-
+    // Other animals will gain 5 food level if they eat a jellyfish
     private static final int FOOD_VALUE = 5;
-
-    protected static Set<String> PREY = new HashSet<String>(Arrays.asList("Plankton"));
-
-    //
-    protected static final String name = "Jellyfish";
-
-    // The likelihood of a rabbit breeding.
-    private static final double SEXUAL_BREEDING_PROBABILITY = 0.02;
-
-    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.01;
-
-    private static final int MAX_LITTER_SIZE = 2;
-
+    // Number of steps it takes for jellyfish to move 1 square in field
     private static final int MOVE_BUFFER = 6;
 
+    protected static final String name = "Jellyfish";
+    // Probability of jellyfish breeding successfuly when it meets
+    // another jellyfish
+    private static final double SEXUAL_BREEDING_PROBABILITY = 0.02;
+    // Probability of jellyfish reproducing on its own
+    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.01;
+    // The maximum number of births from sexual reproduction
+    private static final int MAX_LITTER_SIZE = 2;
+    // List of organisms jellyfishs eat
+    protected static Set<String> PREY = new HashSet<String>(Arrays.asList("Plankton"));
+
     /**
-     * Create a new rabbit. A rabbit may be created with age
-     * zero (a new born) or with a random age.
+     * Create a jellyfish
      * 
-     * @param randomAge If true, the rabbit will have a random age.
-     * @param field     The field currently occupied.
-     * @param location  The location within the field.
+     * @param randomAge  If true, the jellyfish will have random age and hunger level.
+     * @param field      The field currently occupied.
+     * @param location   The location within the field.
      */
     public Jellyfish(boolean randomAge, MasterField field, Location location) {
         super(randomAge, field, location);
     }
 
     /**
-     * Check whether or not this rabbit is to give birth at this step.
+     * Check whether or not this jellyfish is to give birth at this step.
      * New births will be made into free adjacent locations.
      * 
-     * @param newRabbits A list to return newly born rabbits.
+     * @param newJellyfishs A list to return newly born jellyfishs.
      */
     protected void giveBirth(List<Organism> newJellyfish) {
-        // New rabbits are born into adjacent locations.
-        // Get a list of adjacent free locations.
+        // Get field containing animals
         Field field = getPhysicalField();
+        // Get a list of adjacent free locations
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breedSexually();
         births += breedAsexually();
@@ -72,18 +69,19 @@ public class Jellyfish extends Animal {
         }
     }
     
+    /**
+     * Determines whether this jellyfish is currently active
+     * Jellyfishs are active during the day and night
+     * 
+     * @param isDay  Is it day or night
+     * 
+     * @return       Boolean (active or not, always true)
+     */
     protected boolean isActive(boolean isDay)
     {
         return true;
     }
-
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * 
-     * @return The number of births (may be zero).
-     */
-
+    
     protected int getMinBreedingAge() {
         return MIN_BREEDING_AGE;
     }

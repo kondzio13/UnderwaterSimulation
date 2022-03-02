@@ -6,7 +6,6 @@ import java.util.HashMap;
  * for any class of object that is found within the field.
  * 
  * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29
  */
 public class FieldStats {
     // Counters for each type of entity (fox, rabbit, etc.) in the simulation.

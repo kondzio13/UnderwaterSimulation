@@ -4,66 +4,63 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 /**
- * A simple model of a fox.
- * Foxes age, move, eat rabbits, and die.
+ * A simple model of a snail
+ * Snails age, move, eat algae, breed, and die.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
  */
 public class Snail extends Animal {
-    // Characteristics shared by all foxes (class variables).
+    // Characteristics shared by all snails (class variables).
 
-    // The age at which a fox can start to breed.
+    // The minimum age at which a snail can start to breed
     private static final int MIN_BREEDING_AGE = 1;
-
-    private static final int MAX_BREEDING_AGE = 3;
-
+    // The maximum age at which a snail is capable of breeding
+    private static final int MAX_BREEDING_AGE = 8;
+    // Minimum age a snail will die (from simply getting too old)
     private static final int MIN_DEATH_AGE = 2;
-
-    private static final int MAX_DEATH_AGE = 3;
-
-    private static final int MAX_FOOD_LEVEL = 20;
-
+    // Maximum age a snail can live
+    private static final int MAX_DEATH_AGE = 10;
+    // Max amount of food a snail can store
+    private static final int MAX_FOOD_LEVEL = 100;
+    // Other animals will gain 5 food level if they eat a snail
     private static final int FOOD_VALUE = 5;
-
-    //
-    protected static final String name = "Snail";
-
-    // The likelihood of a fox breeding.
-    private static final double SEXUAL_BREEDING_PROBABILITY = 0.1;
-
-    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.0;
-
     //10 changed for testing
-    private static final int MOVE_BUFFER = 1;
-    // The maximum number of births.
-    private static final int MAX_LITTER_SIZE = 10;
-    // A shared random number generator to control breeding.
+    // Number of steps it takes for snail to move 1 square in field
+    private static final int MOVE_BUFFER = 5;
 
+    protected static final String name = "Snail";
+    // 0.1
+    // Probability of snail breeding successfuly when it meets
+    // another snail
+    private static final double SEXUAL_BREEDING_PROBABILITY = 0.99;
+    // Probability of snail reproducing on its own
+    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.0;
+    // The maximum number of births from sexual reproduction
+    private static final int MAX_LITTER_SIZE = 100;
+    // List of organisms snails eat
     protected static Set<String> PREY = new HashSet<String>(Arrays.asList("Algae"));
 
     /**
-     * Create a fox. A fox can be created as a new born (age zero
-     * and not hungry) or with a random age and food level.
+     * Create a snail
      * 
-     * @param randomAge If true, the fox will have random age and hunger level.
-     * @param field     The field currently occupied.
-     * @param location  The location within the field.
+     * @param randomAge  If true, the snail will have random age and hunger level.
+     * @param field      The field currently occupied.
+     * @param location   The location within the field.
      */
     public Snail(boolean randomAge, MasterField field, Location location) {
         super(randomAge, field, location);
     }
 
     /**
-     * Check whether or not this fox is to give birth at this step.
+     * Check whether or not this snail is to give birth at this step.
      * New births will be made into free adjacent locations.
      * 
-     * @param newFoxes A list to return newly born foxes.
+     * @param newSnails A list to return newly born snails.
      */
     protected void giveBirth(List<Organism> newSnails) {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
+        // Get field containing animals
         Field field = getPhysicalField();
+        // Get a list of adjacent free locations
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breedSexually();
         for (int b = 0; b < births && free.size() > 0; b++) {
@@ -73,7 +70,14 @@ public class Snail extends Animal {
         }
     }
     
-    // snail is inactive at night
+    /**
+     * Determines whether this snail is currently active
+     * Snails are active during the day and inactive at night
+     * 
+     * @param isDay  Is it day or night
+     * 
+     * @return       Boolean (active or not)
+     */
     protected boolean isActive(boolean isDay)
     {
         return isDay;

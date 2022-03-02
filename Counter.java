@@ -5,7 +5,6 @@
  * the simulation.
  * 
  * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29
  */
 public class Counter {
     // A name for this type of simulation participant

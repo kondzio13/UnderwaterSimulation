@@ -11,7 +11,7 @@ import java.util.Map;
  * setColor method.
  * 
  * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29
+ * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
  */
 public class SimulatorView extends JFrame {
     // Colors used for empty locations.

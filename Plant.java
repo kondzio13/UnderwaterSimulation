@@ -1,22 +1,31 @@
 import java.util.List;
 
 /**
- * Write a description of class Plant here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * A class representing shared characteristics of plants.
+ * 
+ * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
  */
 public abstract class Plant extends Organism {
     /**
      * Constructor for objects of class Plant
+     * 
+     * @param field     Container for both animal and environment fields
+     * @param location  Location of this plant
      */
     public Plant(MasterField field, Location location) {
         super(field, field.getEnvironmentField(), location);
     }
 
+    /**
+     * Make plant do whatever it needs to do
+     * 
+     * @param newPlants  A list to receive newly produced plants
+     * @param isDay      Whether it is currently day or night
+     */
     public void act(List<Organism> newPlants, boolean isDay) {
+        // If plant is alive and active (algae is inactive at night as it requires sunlight)
         if (isAlive() && isActive(isDay)) {
-            giveBirth(newPlants, isDay);
+            giveBirth(newPlants);
 
             Location newLocation = getPhysicalField().freeAdjacentLocation(getLocation());
             // See if it was possible to move.
@@ -29,5 +38,5 @@ public abstract class Plant extends Organism {
         }
     }
 
-    abstract protected void giveBirth(List<Organism> newPlants, boolean isDay);
+    abstract protected void giveBirth(List<Organism> newPlants);
 }

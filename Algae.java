@@ -1,45 +1,44 @@
 import java.util.List;
 
 /**
- * Model for Algae.
- * Algae can be eaten or grow to neighbouring fields.
+ * A simple model of plankton
+ * Plankton moves, breeds (asexually), and dies
+ * Because of its characteristics, plankton is treated as a plant in this simulation
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
  */
 public class Algae extends Plant {
     // Characteristics shared by all algae (class variables).
-    // The likelihood of a fox breeding.
-    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.01;
+    
+    // Other animals will gain 1 food level if they eat algae
     private static final int FOOD_VALUE = 1;
-
-    // The food value of a single rabbit. In effect, this is the
+    // The likelihood of algae reproducing asexually
+    private static final double ASEXUAL_BREEDING_PROBABILITY = 0.01;
+    // Algae does not move
     private static final int MOVE_BUFFER = -1;
 
     protected static final String name = "Algae";
 
     /**
-     * Create a fox. A fox can be created as a new born (age zero
-     * and not hungry) or with a random age and food level.
+     * Create a plankton object
      * 
-     * @param randomAge If true, the fox will have random age and hunger level.
-     * @param field     The field currently occupied.
-     * @param location  The location within the field.
+     * @param simField   Container for both animal and environment fields
+     * @param location   Location of the algae
      */
     public Algae(MasterField simField, Location location) {
         super(simField, location);
     }
 
     /**
-     * Check whether or not this fox is to give birth at this step.
+     * Check whether or not this algae is to reproduce at this step.
      * New births will be made into free adjacent locations.
      * 
-     * @param newFoxes A list to return newly born foxes.
+     * @param newAlgae  A list to return newly produced algae.
      */
-    protected void giveBirth(List<Organism> newAlgae,  boolean isDay) {
-        // New foxes are born into adjacent locations.
-        // Get a list of adjacent free locations.
+    protected void giveBirth(List<Organism> newAlgae) {
+        // Get field containing plants
         Field field = getPhysicalField();
+        // Get a list of adjacent free locations
         List<Location> free = field.getFreeAdjacentLocations(getLocation());
         int births = breedAsexually();
         for (int b = 0; b < births && free.size() > 0; b++) {
@@ -49,6 +48,14 @@ public class Algae extends Plant {
         }
     }
     
+    /**
+     * Determines whether this algae is currently active
+     * Algae are active during the day and inactive at night
+     * 
+     * @param isDay  Is it day or night
+     * 
+     * @return       Boolean (active or not)
+     */
     protected boolean isActive(boolean isDay)
     {
         return isDay;

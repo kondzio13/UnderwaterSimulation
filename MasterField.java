@@ -2,15 +2,16 @@ import java.util.HashSet;
 import java.util.ArrayList;
 
 /**
- * Write a description of class MasterField here.
+ * MasterField is a container for both the animal and environment fields
+ * Enables organisms from both fields to interact
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
  */
 public class MasterField
 {
-    // instance variables - replace the example below with your own
+    // Field containing animals
     private Field animalField;
+    // Field containing plants and other environmental objects (e.g. oil)
     private Field environmentField;
     
     // The depth and width of the field.
@@ -18,6 +19,10 @@ public class MasterField
 
     /**
      * Constructor for objects of class MasterField
+     * Constructs both fields
+     * 
+     * @param depth  Depth of both fields
+     * @param width  Width of both fields
      */
     public MasterField(int depth, int width){
         this.depth = depth;
@@ -28,8 +33,9 @@ public class MasterField
 
 
     /**
-     * Returns a HashSet with all fields
-     * @return fieldSet
+     * Returns a list with all fields
+     * 
+     * @return  fieldSet
      */
     public ArrayList<Field> getFieldList(){
         ArrayList<Field> fieldSet = new ArrayList<Field>();
@@ -39,14 +45,18 @@ public class MasterField
     }
 
     /**
-     * Returns the animalField
+     * Returns the field containing animals
+     * 
+     * @return animalField
      */
     public Field getAnimalField(){
         return animalField;
     }
     
     /**
-     * Returns the environment Field
+     * Returns the environment field
+     * 
+     * @return environmentField
      */
     public Field getEnvironmentField(){
         return environmentField;
@@ -62,7 +72,10 @@ public class MasterField
     }
     
     /**
-     * Empty the field at location.
+     * Empty the field at location
+     * Empties both fields
+     * 
+     * @param location  Location in field to empty
      */
     public void clear(Location location){
         animalField.clear(location);
