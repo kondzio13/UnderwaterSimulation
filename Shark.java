@@ -7,7 +7,8 @@ import java.util.HashSet;
  * A simple model of a shark
  * Sharks age, move, eat dolphins, breed, and die.
  * 
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class Shark extends Animal {
     // Characteristics shared by all sharks (class variables).

@@ -1,7 +1,8 @@
 /**
  * Represent a location in a rectangular grid.
  * 
- * @author David J. Barnes and Michael Kölling
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class Location
 {

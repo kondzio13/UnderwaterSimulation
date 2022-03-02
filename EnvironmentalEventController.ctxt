@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=EnvironmentalEventController
+comment0.text=\n\ Class\ responsible\ for\ controlling\ environmental\ events\ such\ as\ spontaneous\ plant\ growth\ and\ oil\ spills\n\n\ @author\ Konrad\ Bylina\ [K20014050]\ &\ Matt\ Stanbrell\ [K21044080]\n\ @version\ 2022.03.02\n
+comment1.params=simulationField
+comment1.target=EnvironmentalEventController(MasterField)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ EnvironmentalEvent\n
+comment2.params=newOrganisms\ isDay
+comment2.target=void\ step(java.util.List,\ boolean)
+comment2.text=\n\ Decides\ whether\ an\ environmental\ event\ should\ be\ initiated\ during\ current\ step\ and\ if\ so\n\ initiates\ it.\n\ \n\ @param\ newOrganisms\ \ list\ containing\ organisms\ added\ to\ simulation\ during\ current\ step\ \n\ @param\ isDay\ \ \ \ \ \ \ \ \ boolean\ true\ if\ day\n
+numComments=3

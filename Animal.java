@@ -6,7 +6,9 @@ import java.util.ArrayList;
 /**
  * A class representing shared characteristics of animals.
  * 
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author David J. Barnes and Michael Kölling
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public abstract class Animal extends Organism {
     // Animal's current age in steps (each step is half a day)

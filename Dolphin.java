@@ -7,7 +7,8 @@ import java.util.HashSet;
  * A simple model of a dolphin
  * Dolphins age, move, eat jellyfish, argonauts, and plankton, breed, and die.
  * 
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class Dolphin extends Animal {
     // Characteristics shared by all dolphins (class variables).

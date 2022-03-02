@@ -7,7 +7,8 @@ import java.util.HashSet;
  * A simple model of an Argonaut (a type of octopus)
  * Argonauts age, move, eat jellyfish and snails, breed, and die.
  * 
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class Argonaut extends Animal {
     // Characteristics shared by all argonauts (class variables).

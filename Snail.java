@@ -7,7 +7,8 @@ import java.util.HashSet;
  * A simple model of a snail
  * Snails age, move, eat algae, breed, and die.
  * 
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class Snail extends Animal {
     // Characteristics shared by all snails (class variables).

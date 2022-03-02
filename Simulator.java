@@ -6,7 +6,8 @@ import java.util.Iterator;
  * A simple predator-prey simulator, based on a rectangular field
  * containing sharks, argonauts, dolphins, jellyfish, snails, algae, and plankton
  * 
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class Simulator extends SimulatorBuilder {
     /**

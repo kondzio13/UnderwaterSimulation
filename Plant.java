@@ -3,7 +3,8 @@ import java.util.List;
 /**
  * A class representing shared characteristics of plants.
  * 
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public abstract class Plant extends Organism {
     /**

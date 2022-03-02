@@ -1,18 +1,15 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Write a description of class AlgaeIntroduction here.
+ * Controller for spontaneous Algae introduction environmental event.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class AlgaeIntroducer
 {
-    // instance variables - replace the example below with your own
-    
     private MasterField simulationField;
-    
     private Field environmentField;
 
     /**
@@ -24,11 +21,17 @@ public class AlgaeIntroducer
         this.environmentField = simulationField.getEnvironmentField();
     }
     
+    /**
+     * Creates and returns a list of new algae to be added to the simulation.
+     * 
+     * @param location      location of centre of new algae group
+     * @return newAlgae     list containing new algae
+     */
     public List<Organism> getNewAlgae(Location location){
-        List<Location> locations = getLocations(environmentField, location);
-        List newAlgae = new ArrayList<Organism>();
+        List<Location> locations = getLocations(location);
+        List<Organism> newAlgae = new ArrayList<Organism>();
         
-        clearLocationsForNewAlgae(environmentField, locations);
+        clearLocationsForNewAlgae(locations);
         for (Location loc : locations){
             newAlgae.add(new Algae(simulationField, loc));
         }
@@ -36,13 +39,24 @@ public class AlgaeIntroducer
         return newAlgae;
     }
 
-    private void clearLocationsForNewAlgae(Field environmentField, List<Location> locations){
+    /**
+     * Clears locations of the environment field for new algae
+     * 
+     * @param locations     List of all locations to be cleared
+     */
+    private void clearLocationsForNewAlgae(List<Location> locations){
         for (Location location : locations){
             environmentField.clear(location);
         }
     }
     
-    private List<Location> getLocations(Field environmentField, Location location){
+    /**
+     * Returns a list of locations for new algae group
+     * 
+     * @param location      location of centre of algae group
+     * @return locations    list of locations for new algae
+     */
+    private List<Location> getLocations(Location location){
         List<Location> locations = environmentField.adjacentLocations(location);
         locations.add(location);
         return locations;

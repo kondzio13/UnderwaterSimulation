@@ -7,7 +7,8 @@ import java.util.HashSet;
  * A simple model of a jellyfish
  * Jellyfish age, move, eat plankton, breed, and die.
  * 
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class Jellyfish extends Animal {
     // Characteristics shared by all jellyfishs (class variables).

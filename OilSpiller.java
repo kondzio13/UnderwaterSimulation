@@ -1,21 +1,21 @@
 import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
- * Write a description of class OilSpiller here.
+ * Controller for the oil spill environmental event
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class OilSpiller
 {
-    // instance variables - replace the example below with your own
+    // instance variables
     private MasterField simulationField;
     private List<OilSpill> oilSpills;
     private Random random;
 
+    //Constant representing the maximum radius of an oil spill
     private static final int MAX_SPILL_RADIUS = 3;
 
     /**
@@ -28,6 +28,11 @@ public class OilSpiller
         this.random = new Random();
     }
 
+    /**
+     * Creates a new oil spill and adds it to the oilSpills list
+     * 
+     * @param location
+     */
     public void spillOil(Location location){
         int oilSpillRadius = generateOilSpillRadius();
         OilSpill newOilSpill = new OilSpill(simulationField, location, oilSpillRadius);
@@ -35,10 +40,16 @@ public class OilSpiller
 
     }
 
+    /**
+     * Returns a random radius size
+     */
     private int generateOilSpillRadius(){
         return random.nextInt(MAX_SPILL_RADIUS) + 1;
     }
 
+    /**
+     * Let all active oil spills know the simulation is at the next step
+     */
     public void step(){
         for (OilSpill oilSpill : oilSpills)
         {
@@ -47,6 +58,9 @@ public class OilSpiller
         checkActiveOilSpills();
     }
 
+    /**
+     * Check whether oil spills are active and update oilSpills list
+     */
     private void checkActiveOilSpills(){
         ArrayList<OilSpill> remainingActive = new ArrayList<OilSpill>();
         for (OilSpill oilSpill : oilSpills){

@@ -5,6 +5,8 @@
  * the simulation.
  * 
  * @author David J. Barnes and Michael Kölling
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class Counter {
     // A name for this type of simulation participant

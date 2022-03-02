@@ -4,7 +4,8 @@ import java.util.Random;
 /**
  * A class representing the shared characteristics of all organisms
  *
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public abstract class Organism {
     // Whether the organism is alive or not.

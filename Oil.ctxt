@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Oil
+comment0.text=\n\ Oil,\ when\ polluting,\ removes\ any\ objects\ which\ are\ at\ the\ location\ of\ the\ Oil\ object\n\ in\ all\ fields\ of\ the\ simulation.\n\n\ @author\ Konrad\ Bylina\ [K20014050]\ &\ Matt\ Stanbrell\ [K21044080]\n\ @version\ 2022.03.02\n
+comment1.params=simulationField\ location
+comment1.target=Oil(MasterField,\ Location)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Oil\n
+comment2.params=
+comment2.target=void\ step()
+comment2.text=\n\ Removes\ all\ objects\ at\ location\ of\ Oil\ object\ in\ all\ fields\ and\ checks\ whether\ the\ oil\n\ object\ should\ still\ be\ polluting.\ \n
+comment3.params=
+comment3.target=void\ startPolluting()
+comment3.text=\n\ Lets\ the\ oil\ object\ know\ when\ it\ should\ start\ polluting\ \n
+comment4.params=
+comment4.target=boolean\ validAge()
+comment4.text=\n\ Returns\ false\ if\ oil\ has\ polluted\ for\ enough\ time\n\ @return\n
+comment5.params=
+comment5.target=boolean\ isPolluting()
+comment5.text=\n\ Returns\ true\ is\ oil\ is\ still\ polluting\n
+comment6.params=
+comment6.target=Location\ getLocation()
+comment6.text=\n\ Returns\ the\ location\ of\ the\ oil\ object\n
+numComments=7

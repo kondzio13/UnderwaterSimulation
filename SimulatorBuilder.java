@@ -6,7 +6,8 @@ import java.util.Random;
 /**
  * Superclass of simulator, builds the simulator when first run
  *
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class SimulatorBuilder {
     // Constants representing configuration information for the simulation.
@@ -100,13 +101,14 @@ public class SimulatorBuilder {
     }
 
     /**
-     * Randomly populate the field with organisms.
+     * Randomly populate the fields with organisms.
      */
     private void populate() {
         Random rand = Randomizer.getRandom();
         simulationField.clear();
         for (int row = 0; row < simulationField.getDepth(); row++) {
             for (int col = 0; col < simulationField.getWidth(); col++) {
+                // Populate the animal field
                 if (rand.nextDouble() <= SHARK_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Shark shark = new Shark(true, simulationField, location);
@@ -127,7 +129,9 @@ public class SimulatorBuilder {
                     Location location = new Location(row, col);
                     Snail snail = new Snail(true, simulationField, location);
                     organisms.add(snail);
-                } else if (rand.nextDouble() <= ALGAE_CREATION_PROBABILITY) {
+                }
+                // Populate the environment field
+                if (rand.nextDouble() <= ALGAE_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Algae algae = new Algae(simulationField, location);
                     organisms.add(algae);

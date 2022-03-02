@@ -8,7 +8,8 @@ import java.util.Random;
  * Each position is able to store a single animal.
  * 
  * @author David J. Barnes and Michael Kölling
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class Field {
     // A random number generator for providing random locations.
@@ -215,10 +216,11 @@ public class Field {
     }
     
     /**
-     * Return a shuffled list of locations adjacent to the given one.
-     * The list will not include the location itself.
-     * All locations will lie within the grid.
+     * Return a list of locations within a specified distance from location
+     * including the location. 
      * 
+     * @param radius        distance from central location
+     * @param location      central location
      */
     public List<Location> locationsWithinOf(int radius, Location location) {
         assert location != null : "Null location passed to adjacentLocations";

@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=AlgaeIntroducer
+comment0.text=\n\ Controller\ for\ spontaneous\ Algae\ introduction\ environmental\ event.\n\n\ @author\ Konrad\ Bylina\ [K20014050]\ &\ Matt\ Stanbrell\ [K21044080]\n\ @version\ 2022.03.02\n
+comment1.params=simulationField
+comment1.target=AlgaeIntroducer(MasterField)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ AlgaeIntroduction\n
+comment2.params=location
+comment2.target=java.util.List\ getNewAlgae(Location)
+comment2.text=\n\ Creates\ and\ returns\ a\ list\ of\ new\ algae\ to\ be\ added\ to\ the\ simulation.\n\ \n\ @param\ location\ \ \ \ \ \ location\ of\ centre\ of\ new\ algae\ group\n\ @return\ newAlgae\ \ \ \ \ list\ containing\ new\ algae\n
+comment3.params=locations
+comment3.target=void\ clearLocationsForNewAlgae(java.util.List)
+comment3.text=\n\ Clears\ locations\ of\ the\ environment\ field\ for\ new\ algae\n\ \n\ @param\ locations\ \ \ \ \ List\ of\ all\ locations\ to\ be\ cleared\n
+comment4.params=location
+comment4.target=java.util.List\ getLocations(Location)
+comment4.text=\n\ Returns\ a\ list\ of\ locations\ for\ new\ algae\ group\n\ \n\ @param\ location\ \ \ \ \ \ location\ of\ centre\ of\ algae\ group\n\ @return\ locations\ \ \ \ list\ of\ locations\ for\ new\ algae\n
+numComments=5

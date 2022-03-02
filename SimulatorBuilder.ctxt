@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=SimulatorBuilder
+comment0.text=\n\ Superclass\ of\ simulator,\ builds\ the\ simulator\ when\ first\ run\n\n\ @author\ Konrad\ Bylina\ [K20014050]\ &\ Matt\ Stanbrell\ [K21044080]\n\ @version\ 2022.03.02\n
+comment1.params=
+comment1.target=SimulatorBuilder()
+comment1.text=\n\ Construct\ a\ simulation\ field\ with\ default\ size.\n
+comment2.params=depth\ width
+comment2.target=SimulatorBuilder(int,\ int)
+comment2.text=\n\ Create\ a\ simulation\ field\ with\ the\ given\ size.\n\ \n\ @param\ depth\ Depth\ of\ the\ field.\ Must\ be\ greater\ than\ zero.\n\ @param\ width\ Width\ of\ the\ field.\ Must\ be\ greater\ than\ zero.\n
+comment3.params=
+comment3.target=void\ reset()
+comment3.text=\n\ Reset\ the\ simulation\ to\ a\ starting\ position.\n
+comment4.params=
+comment4.target=void\ populate()
+comment4.text=\n\ Randomly\ populate\ the\ fields\ with\ organisms.\n
+numComments=5

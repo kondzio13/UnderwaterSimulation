@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.target=Plant
+comment0.text=\n\ A\ class\ representing\ shared\ characteristics\ of\ plants.\n\ \n\ @author\ Konrad\ Bylina\ [K20014050]\ &\ Matt\ Stanbrell\ [K21044080]\n\ @version\ 2022.03.02\n
+comment1.params=field\ location
+comment1.target=Plant(MasterField,\ Location)
+comment1.text=\n\ Constructor\ for\ objects\ of\ class\ Plant\n\ \n\ @param\ field\ \ \ \ \ Container\ for\ both\ animal\ and\ environment\ fields\n\ @param\ location\ \ Location\ of\ this\ plant\n
+comment2.params=newPlants\ isDay
+comment2.target=void\ act(java.util.List,\ boolean)
+comment2.text=\n\ Make\ plant\ do\ whatever\ it\ needs\ to\ do\n\ \n\ @param\ newPlants\ \ A\ list\ to\ receive\ newly\ produced\ plants\n\ @param\ isDay\ \ \ \ \ \ Whether\ it\ is\ currently\ day\ or\ night\n
+comment3.params=newPlants
+comment3.target=void\ giveBirth(java.util.List)
+numComments=4

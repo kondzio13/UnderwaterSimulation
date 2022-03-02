@@ -1,11 +1,11 @@
-import java.util.HashSet;
 import java.util.ArrayList;
 
 /**
  * MasterField is a container for both the animal and environment fields
  * Enables organisms from both fields to interact
  *
- * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
+ * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
+ * @version 2022.03.02
  */
 public class MasterField
 {
@@ -35,13 +35,13 @@ public class MasterField
     /**
      * Returns a list with all fields
      * 
-     * @return  fieldSet
+     * @return  fieldList
      */
     public ArrayList<Field> getFieldList(){
-        ArrayList<Field> fieldSet = new ArrayList<Field>();
-        fieldSet.add(animalField);
-        fieldSet.add(environmentField);
-        return fieldSet;
+        ArrayList<Field> fieldList = new ArrayList<Field>();
+        fieldList.add(animalField);
+        fieldList.add(environmentField);
+        return fieldList;
     }
 
     /**
@@ -63,7 +63,7 @@ public class MasterField
     }
     
     /**
-     * Empty the field.
+     * Empty all fields.
      */
     public void clear()
     {
@@ -73,7 +73,7 @@ public class MasterField
     
     /**
      * Empty the field at location
-     * Empties both fields
+     * Empties location at both fields
      * 
      * @param location  Location in field to empty
      */
