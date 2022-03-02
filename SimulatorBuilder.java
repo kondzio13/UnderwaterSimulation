@@ -4,10 +4,9 @@ import java.awt.Color;
 import java.util.Random;
 
 /**
- * Write a description of class SimulatorDesigner here.
+ * Superclass of simulator, builds the simulator when first run
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
  */
 public class SimulatorBuilder {
     // Constants representing configuration information for the simulation.
@@ -15,19 +14,19 @@ public class SimulatorBuilder {
     private static final int DEFAULT_WIDTH = 120;
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
-    // The probability that a fox will be created in any given grid position.
+    // 0.02
     private static final double SHARK_CREATION_PROBABILITY = 0.02;
-    // The probability that a rabbit will be created in any given grid position.
+    // 0.08
     private static final double JELLYFISH_CREATION_PROBABILITY = 0.08;
-
-    private static final double DOLPHIN_CREATION_PROBABILITY = 0.04;
-
+    // 0.04
+    private static final double DOLPHIN_CREATION_PROBABILITY = 0.08;
+    // 0.04 
     private static final double ARGONAUT_CREATION_PROBABILITY = 0.04;
-
+    // 0.04
     private static final double SNAIL_CREATION_PROBABILITY = 0.04;
-
+    // 0.1
     private static final double ALGAE_CREATION_PROBABILITY = 0.1;
-
+    // 0.1
     private static final double PLANKTON_CREATION_PROBABILITY = 0.1;
 
     // List of animals in the field.
@@ -44,12 +43,18 @@ public class SimulatorBuilder {
     protected int step;
 
     /**
-     * Constructor for objects of class SimulatorBuilder
+     * Construct a simulation field with default size.
      */
     public SimulatorBuilder() {
         this(DEFAULT_DEPTH, DEFAULT_WIDTH);
     }
 
+    /**
+     * Create a simulation field with the given size.
+     * 
+     * @param depth Depth of the field. Must be greater than zero.
+     * @param width Width of the field. Must be greater than zero.
+     */
     public SimulatorBuilder(int depth, int width) {
         if (width <= 0 || depth <= 0) {
             System.out.println("The dimensions must be greater than zero.");
@@ -57,7 +62,7 @@ public class SimulatorBuilder {
             depth = DEFAULT_DEPTH;
             width = DEFAULT_WIDTH;
         }
-
+        // Constructs both environmental and animal fields
         simulationField = new MasterField(depth, width);
         organisms = new ArrayList<>();
         environment = new EnvironmentalEventController(simulationField);
@@ -75,6 +80,7 @@ public class SimulatorBuilder {
         environmentView = new SimulatorView(depth, width);
         environmentView.setColor(Algae.class, Color.GREEN.darker());
         environmentView.setColor(Plankton.class, new Color(67, 120, 124));
+        environmentView.setColor(Oil.class, Color.BLACK);
 
         // Setup a valid starting point.
         reset();
@@ -94,7 +100,7 @@ public class SimulatorBuilder {
     }
 
     /**
-     * Randomly populate the field with foxes and rabbits.
+     * Randomly populate the field with organisms.
      */
     private void populate() {
         Random rand = Randomizer.getRandom();
@@ -121,8 +127,7 @@ public class SimulatorBuilder {
                     Location location = new Location(row, col);
                     Snail snail = new Snail(true, simulationField, location);
                     organisms.add(snail);
-                }
-                if (rand.nextDouble() <= ALGAE_CREATION_PROBABILITY) {
+                } else if (rand.nextDouble() <= ALGAE_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Algae algae = new Algae(simulationField, location);
                     organisms.add(algae);

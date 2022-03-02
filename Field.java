@@ -8,7 +8,7 @@ import java.util.Random;
  * Each position is able to store a single animal.
  * 
  * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29
+ * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
  */
 public class Field {
     // A random number generator for providing random locations.
@@ -65,19 +65,19 @@ public class Field {
     }
 
     /**
-     * Place an animal at the given location.
-     * If there is already an animal at the location it will
+     * Place an object at the given location.
+     * If there is already an object at the location it will
      * be lost.
      * 
-     * @param animal   The animal to be placed.
-     * @param location Where to place the animal.
+     * @param animal   The object to be placed.
+     * @param location Where to place the object.
      */
     public void place(Object animal, Location location) {
         field[location.getRow()][location.getCol()] = animal;
     }
 
     /**
-     * Return the animal at the given location, if any.
+     * Return the object at the given location, if any.
      * 
      * @param location Where in the field.
      * @return The animal at the given location, or null if there is none.
@@ -86,6 +86,13 @@ public class Field {
         return getObjectAt(location.getRow(), location.getCol());
     }
 
+    /**
+     * Return the organism at the given location, if any
+     * 
+     * @param location  Location to be checked
+     * 
+     * @return          The organism at the given location, or null if there is none.
+     */
     public Organism getOrganismAt(Location location) {
         Object organism = field[location.getRow()][location.getCol()];
         if (organism instanceof Organism) {
@@ -94,6 +101,15 @@ public class Field {
         return null;
     }
 
+    /**
+     * Return the animal at the given location, if any
+     * Specifically only for checking if an animal object
+     * is at a certain location
+     * 
+     * @param location  Location to be checked
+     * 
+     * @return          The animal at the given location, or null if there is none.
+     */
     public Animal getAnimalAt(Location location) {
         Object animal = field[location.getRow()][location.getCol()];
         if (animal instanceof Animal) {
@@ -194,6 +210,35 @@ public class Field {
             // Shuffle the list. Several other methods rely on the list
             // being in a random order.
             Collections.shuffle(locations, rand);
+        }
+        return locations;
+    }
+    
+    /**
+     * Return a shuffled list of locations adjacent to the given one.
+     * The list will not include the location itself.
+     * All locations will lie within the grid.
+     * 
+     */
+    public List<Location> locationsWithinOf(int radius, Location location) {
+        assert location != null : "Null location passed to adjacentLocations";
+        // The list of locations to be returned.
+        List<Location> locations = new LinkedList<>();
+        if (location != null) {
+            int row = location.getRow();
+            int col = location.getCol();
+            for (int roffset = -radius; roffset <= radius; roffset++) {
+                int nextRow = row + roffset;
+                if (nextRow >= 0 && nextRow < depth) {
+                    for (int coffset = -radius; coffset <= radius; coffset++) {
+                        int nextCol = col + coffset;
+                        // Exclude invalid locations and the original location.
+                        if (nextCol >= 0 && nextCol < width) {
+                            locations.add(new Location(nextRow, nextCol));
+                        }
+                    }
+                }
+            }
         }
         return locations;
     }

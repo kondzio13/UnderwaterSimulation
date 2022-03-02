@@ -6,26 +6,28 @@ import java.util.ArrayList;
 /**
  * A class representing shared characteristics of animals.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author Konrad Bylina [] & Matt Stanbrell [K21044080]
  */
 public abstract class Animal extends Organism {
+    // Animal's current age in steps (each step is half a day)
     protected int ageInSteps;
-
+    // Age the animal can live up to
     protected int maxAge;
-
+    // Current food level
     protected int foodLevel;
-
+    // Whether the animal is female (for breeding purposes)
     protected boolean isFemale;
 
     /**
      * Create a new animal at location in field.
      * 
-     * @param field    The field currently occupied.
-     * @param location The location within the field.
+     * @param randomAge  Whether the assigned age should be random or 0
+     * @param field      Container for bo
+     * @param location   The location within the field.
      */
     public Animal(Boolean randomAge, MasterField simField, Location location) {
         super(simField, simField.getAnimalField(), location);
+        // Age animal can live up to, random age between species max and min death age
         maxAge = rand.nextInt(getMaxDeathAge() - getMinDeathAge()) + getMinDeathAge();
         isFemale = rand.nextBoolean();
         if (randomAge) {
@@ -37,32 +39,37 @@ public abstract class Animal extends Organism {
         }
     }
 
+    /**
+     * Make animal do whatever it needs to
+     * 
+     * @param newAnimals  A list to receive newly born animals
+     * @param isDay       Is it day or night
+     */
     public void act(List<Organism> newAnimals, boolean isDay) {
         incrementAge();
         incrementHunger();
         incrementMoveBufferProgress();
+        // If animal is alive and active (some are inactive at night)
         if (isAlive() && isActive(isDay)) {
-            //System.out.println(getName() + " is doing something");
+            // Only females search for a mate for efficiency
             if (isFemale && canMove()) {
-                //System.out.println(getName() + " is trying to find a mate");
                 findMate(newAnimals);
             } else if (getAsexualBreedingProbability() != 0) {
                 //System.out.println(getName() + " is trying to give birth asexually");
                 giveBirth(newAnimals);
             }
             // Move towards a source of food if found.
+            // If animal can't move, will search for plants 
+            // in its current location (if the aninmal eats plants)
             Location newLocation = findFood();
             if (canMove()) {
                 if (newLocation == null) {
                     // No food found - try to move to a free location.
                     newLocation = getPhysicalField().freeAdjacentLocation(getLocation());
-                } else {
-                    //System.out.println(getName() + " found food");
                 }
                 // See if it was possible to move.
                 if (newLocation != null) {
                     setLocation(newLocation);
-                    //System.out.println(getName() + " moved");
                 } else {
                     // Overcrowding.
                     setDead();
@@ -83,7 +90,8 @@ public abstract class Animal extends Organism {
         if (canMove()) {
             foodLocation = findFoodAdjacent(getLocation());
         }
-        // if animal can't move (and didn't find food adjacent), searches current location for food
+        // if animal can't move (or can but didn't find food adjacent)
+        // searches current location for food
         if (foodLocation == null && eatsPlants()) {
             foodLocation = findFoodHere();
         }
@@ -145,7 +153,7 @@ public abstract class Animal extends Organism {
             return null;
         } else {
             // for testing
-            System.out.println(getName() + " found " + preyOrganism.getName());
+            //System.out.println(getName() + " found " + preyOrganism.getName());
         }
         
         if (isInPreyList(preyOrganism)) {
@@ -193,8 +201,6 @@ public abstract class Animal extends Organism {
     {
         foodOrganism.setDead();
         foodLevel += foodOrganism.getFoodValue();
-        // for testing
-        System.out.println(getName() + " ate " + foodOrganism.getName());
     }
     
     /**
@@ -207,7 +213,15 @@ public abstract class Animal extends Organism {
         return getPreyList().contains("Algae") || getPreyList().contains("Plankton");
     }
     
+    /**
+     * Finds an animal of the same species and opposite sex to mate with
+     * 
+     * @param newAnimals  List for new baby animals produced  
+     * 
+     * @return   Location of mate (or null if not found)
+     */
     protected Location findMate(List<Organism> newAnimals) {
+        // Get field with animals in
         Field field = getPhysicalField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
@@ -221,19 +235,24 @@ public abstract class Animal extends Organism {
                     // if both animals of breeding age
                     if (canBreed() && animal.canBreed()) {
                         giveBirth(newAnimals);
-                        // testing that this actually works
-                        //System.out.println(getName() + " is giving birth");
                     }
                 }
             }
         }
         return null;
     }
-
+    /**
+     * Checks if this is of breeding age
+     * 
+     * @return Boolean
+     */
     public boolean canBreed() {
         return (ageInSteps >= convertYearsToSteps(getMinBreedingAge())) && (ageInSteps <= convertYearsToSteps(getMaxBreedingAge()));
     }
-
+    
+    /**
+     * Increments animal's age by one step
+     */
     protected void incrementAge() {
         ageInSteps++;
         if (ageInSteps > convertYearsToSteps(maxAge)) {
@@ -242,13 +261,29 @@ public abstract class Animal extends Organism {
         }
     }
 
+    /**
+     * Decreases animal's foodLevel by a certain amount
+     */
     protected void incrementHunger() {
-        foodLevel = foodLevel - (int) (getMaxFoodLevel() * 0.1);
+        // Amount of foodLevel to be removed
+        double foodRemoved = getMaxFoodLevel() * 0.03;
+        // Ensures food level is actually decreased by at least 1
+        if (foodRemoved <1) {
+            foodRemoved = 1;
+        }
+        foodLevel = foodLevel - (int) foodRemoved;
+        // Animal starved
         if (foodLevel <= 0) {
             setDead();
         }
     }
 
+    /**
+     * Generates number of births the animal will have
+     * 
+     * @return births  The number of births the animal can have 
+     *                 (actual number born depends on space available)
+     */
     protected int breedSexually() {
         int births = 0;
         if (canBreed() && rand.nextDouble() <= getSexualBreedingProbability()) {
