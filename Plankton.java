@@ -3,7 +3,6 @@ import java.util.List;
 /**
  * A simple model of plankton
  * Plankton moves, breeds (asexually), and dies
- * Because of its characteristics, plankton is treated as a plant in this simulation
  * 
  * @author Konrad Bylina [K20014050] & Matt Stanbrell [K21044080]
  * @version 2022.03.02
